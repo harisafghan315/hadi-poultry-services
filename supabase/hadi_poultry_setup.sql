@@ -730,3 +730,27 @@ INSERT INTO settings (key, value) VALUES ('business_name', 'Hadi Poultry Service
 ON CONFLICT (key) DO NOTHING;
 INSERT INTO settings (key, value) VALUES ('business_name_ps', 'هادي مرغداري خدمات')
 ON CONFLICT (key) DO NOTHING;
+
+-- ============================================================
+-- Schema drift fix: columns/tables present in the live source DB
+-- that the original export missed. Without these, farms/clients and
+-- market pages fail to load. Idempotent.
+-- ============================================================
+-- farms.kind: distinguishes 'farm' vs 'client' entities (app filters on it)
+alter table farms add column if not exists kind text not null default 'farm';
+
+-- market_transactions.commission_per_chicken
+alter table market_transactions add column if not exists commission_per_chicken numeric default 0;
+
+-- market_transaction_expenses: per-transaction expense lines
+create table if not exists market_transaction_expenses (
+  id uuid primary key default gen_random_uuid(),
+  transaction_id uuid references market_transactions(id) on delete cascade,
+  description text not null,
+  amount numeric not null default 0,
+  expense_date date not null default current_date,
+  created_at timestamp with time zone default now()
+);
+alter table market_transaction_expenses enable row level security;
+drop policy if exists "Allow all" on market_transaction_expenses;
+create policy "Allow all" on market_transaction_expenses for all using (true) with check (true);

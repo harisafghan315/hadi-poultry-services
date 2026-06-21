@@ -60,7 +60,7 @@ export default function Sidebar({ open, onClose }) {
     .map(s => ({ ...s, items: isAdmin ? s.items : s.items.filter(i => ASSOCIATE_PATHS.has(i.to)) }))
     .filter(s => s.items.length > 0)
 
-  const sideClass = `fixed top-0 ${isRTL ? 'right-0' : 'left-0'} h-full z-30 flex flex-col w-64 bg-gradient-to-b from-[#0C2E31] to-[#06191B] text-white transition-transform duration-300 ease-in-out ${
+  const sideClass = `fixed top-0 ${isRTL ? 'right-0' : 'left-0'} h-full z-30 flex flex-col w-64 bg-gradient-to-b from-[#1E1B4B] to-[#0F0A2E] text-white transition-transform duration-300 ease-in-out ${
     open ? 'translate-x-0' : (isRTL ? 'translate-x-full' : '-translate-x-full')
   } lg:translate-x-0 lg:static lg:z-auto border-e border-white/5`
 
@@ -72,12 +72,12 @@ export default function Sidebar({ open, onClose }) {
         {/* Brand header */}
         <div className="flex items-center justify-between px-4 h-16 shrink-0 border-b border-white/5">
           <div className="flex items-center gap-3 min-w-0">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#2DD4BF] to-[#0D9488] flex items-center justify-center text-white font-bold text-base shadow-lg ring-1 ring-white/20 shrink-0">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#818CF8] to-[#4F46E5] flex items-center justify-center text-white font-bold text-base shadow-lg ring-1 ring-white/20 shrink-0">
               {logoLetter}
             </div>
             <div className="min-w-0">
               <div className="text-sm font-bold leading-tight truncate">{businessName}</div>
-              <div className="text-[10px] uppercase tracking-[0.15em] text-teal-300/50">{t('common.supplyStore')}</div>
+              <div className="text-[10px] uppercase tracking-[0.15em] text-indigo-300/50">{t('common.supplyStore')}</div>
             </div>
           </div>
           <button onClick={onClose} className="lg:hidden p-1 rounded hover:bg-white/10">
@@ -90,7 +90,7 @@ export default function Sidebar({ open, onClose }) {
           {sections.map((section, si) => (
             <div key={si} className="px-2 py-1">
               {section.title && (
-                <div className="px-3 pt-3 pb-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-teal-300/40">
+                <div className="px-3 pt-3 pb-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-indigo-300/40">
                   {SIDEBAR_SECTION_BI[section.title] || section.title}
                 </div>
               )}
@@ -102,17 +102,17 @@ export default function Sidebar({ open, onClose }) {
                   onClick={onClose}
                   className={({ isActive }) =>
                     `relative flex items-center gap-3 px-3 py-2 rounded-lg text-[13px] font-medium transition-colors ${
-                      isActive ? 'bg-white/10 text-white' : 'text-teal-50/55 hover:text-white hover:bg-white/[0.06]'
+                      isActive ? 'bg-white/10 text-white' : 'text-indigo-50/55 hover:text-white hover:bg-white/[0.06]'
                     }`
                   }
                 >
                   {({ isActive }) => (
                     <>
-                      <span className={`absolute inset-y-1.5 start-0 w-0.5 rounded-full bg-[#2DD4BF] transition-opacity ${isActive ? 'opacity-100' : 'opacity-0'}`} />
-                      <Icon size={18} className={isActive ? 'text-[#2DD4BF] shrink-0' : 'shrink-0'} />
+                      <span className={`absolute inset-y-1.5 start-0 w-0.5 rounded-full bg-[#818CF8] transition-opacity ${isActive ? 'opacity-100' : 'opacity-0'}`} />
+                      <Icon size={18} className={isActive ? 'text-[#818CF8] shrink-0' : 'shrink-0'} />
                       <span className="flex-1 truncate">{NAV_BI[labelKey] || t(labelKey)}</span>
                       {highlight && (
-                        <span className="text-[9px] bg-emerald-400 text-emerald-950 px-1.5 py-0.5 rounded-full font-bold tracking-wide">POS</span>
+                        <span className="text-[9px] bg-violet-400 text-violet-950 px-1.5 py-0.5 rounded-full font-bold tracking-wide">POS</span>
                       )}
                     </>
                   )}
@@ -126,12 +126,12 @@ export default function Sidebar({ open, onClose }) {
         {user && (
           <div className="border-t border-white/5 px-3 py-3 space-y-2 shrink-0">
             <div className="flex items-center gap-3 px-2 py-2 rounded-xl bg-white/5">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#2DD4BF] to-[#0D9488] flex items-center justify-center text-white text-sm font-bold shrink-0">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#818CF8] to-[#4F46E5] flex items-center justify-center text-white text-sm font-bold shrink-0">
                 {user.name.charAt(0).toUpperCase()}
               </div>
               <div className="flex-1 min-w-0">
                 <div className="text-sm font-medium text-white truncate">{user.name}</div>
-                <div className="text-xs text-teal-200/60 flex items-center gap-1">
+                <div className="text-xs text-indigo-200/60 flex items-center gap-1">
                   {isAdmin ? <Shield size={10} /> : <UserIcon size={10} />}
                   {isAdmin ? 'Admin' : 'Associate'}
                 </div>
@@ -139,7 +139,7 @@ export default function Sidebar({ open, onClose }) {
             </div>
             <button
               onClick={() => { logout(); onClose() }}
-              className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-teal-50/70 hover:bg-red-500/20 hover:text-red-200 transition-colors"
+              className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-indigo-50/70 hover:bg-red-500/20 hover:text-red-200 transition-colors"
             >
               <LogOut size={14} /> Sign Out
             </button>
